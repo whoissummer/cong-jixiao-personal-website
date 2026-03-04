@@ -1,0 +1,17 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "description": "A beautiful personal website for 陈 文",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Build complete - static files ready'",
+    "deploy": "echo 'Ready for deployment'"
+  },
+  "keywords": ["personal", "website", "portfolio", "modern"],
+  "author": "陈 文",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

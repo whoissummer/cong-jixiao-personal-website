@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>从霁骁 - Personal Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 1s ease-in',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        .typing-effect {
+            border-right: 3px solid #667eea;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { border-color: #667eea; }
+            51%, 100% { border-color: transparent; }
+        }
+        .skill-bar {
+            transition: width 2s ease-in-out;
+        }
+        .project-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold gradient-text">从霁骁</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">首页</a>
+                    <a href="#about" class="nav-link text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">关于</a>
+                    <a href="#skills" class="nav-link text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">技能</a>
+                    <a href="#projects" class="nav-link text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">我的照片</a>
+                    <a href="#contact" class="nav-link text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">联系</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <button id="mobileMenuToggle" class="md:hidden p-2">
+                        <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <a href="#home" class="block py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">首页</a>
+                <a href="#about" class="block py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">关于</a>
+                <a href="#skills" class="block py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">技能</a>
+                <a href="#projects" class="block py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">我的照片</a>
+                <a href="#contact" class="block py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center hero-gradient text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center animate-fade-in">
+                <div class="mb-8 animate-float">
+                    <div class="w-32 h-32 mx-auto bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-6xl text-purple-600"></i>
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    你好，我是 <span class="typing-effect">从霁骁</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90" id="typewriterText"></p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#contact" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-300">
+                        联系我
+                    </a>
+                    <a href="#projects" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-purple-600 transform hover:scale-105 transition-all duration-300">
+                        查看照片
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">关于我</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="animate-slide-up">
+                    <div class="relative rounded-2xl shadow-2xl w-full max-w-md mx-auto overflow-hidden">
+                        <div id="photoCarousel" class="relative h-96">
+                            <img src="images/WechatIMG2.jpg" alt="我的照片" class="carousel-image absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000">
+                            <img src="images/WechatIMG3.jpg" alt="我的照片" class="carousel-image absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                            <img src="images/WechatIMG4.jpg" alt="我的照片" class="carousel-image absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                            <img src="images/WechatIMG5.jpg" alt="我的照片" class="carousel-image absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                            <img src="images/WechatIMG6.jpg" alt="我的照片" class="carousel-image absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                        </div>
+                        <!-- 轮播指示器 -->
+                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                            <span class="carousel-dot w-2 h-2 bg-white rounded-full opacity-100 transition-opacity duration-300"></span>
+                            <span class="carousel-dot w-2 h-2 bg-white rounded-full opacity-50 transition-opacity duration-300"></span>
+                            <span class="carousel-dot w-2 h-2 bg-white rounded-full opacity-50 transition-opacity duration-300"></span>
+                            <span class="carousel-dot w-2 h-2 bg-white rounded-full opacity-50 transition-opacity duration-300"></span>
+                            <span class="carousel-dot w-2 h-2 bg-white rounded-full opacity-50 transition-opacity duration-300"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6 animate-slide-up">
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        我的名字改为从霁骁，我是一个新生人类。
+                    </p>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        我出生于2025年7月9日，现在我已经 <span id="age" class="font-bold text-purple-600">计算中...</span> 大了！
+                    </p>
+                    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        我对这个世界充满好奇，每天都在学习新的技能和知识。虽然我还很小，但我已经掌握了很多生活技能。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-lg">
+                            <i class="fas fa-utensils text-pink-600 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-gray-800 dark:text-gray-200">吃饭</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">喝奶吃辅食样样行</p>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                            <i class="fas fa-bed text-blue-600 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-gray-800 dark:text-gray-200">睡觉</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">随时随地都能睡</p>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                            <i class="fas fa-comments text-green-600 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-gray-800 dark:text-gray-200">说话</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">咿咿呀呀学说话</p>
+                        </div>
+                        <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
+                            <i class="fas fa-walking text-orange-600 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-gray-800 dark:text-gray-200">运动</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">爬行和站立练习中</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">技能专长</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-baby text-pink-500 text-3xl mr-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">喝奶</h3>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="skill-bar bg-pink-500 h-3 rounded-full" style="width: 95%"></div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">专家级 - 天生技能</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-utensils text-orange-500 text-3xl mr-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">吃辅食</h3>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="skill-bar bg-orange-500 h-3 rounded-full" style="width: 70%"></div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">进阶学习中</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-bed text-blue-500 text-3xl mr-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">睡觉</h3>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="skill-bar bg-blue-500 h-3 rounded-full" style="width: 90%"></div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">大师级 - 随时随地</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg card-hover">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-volume-up text-red-500 text-3xl mr-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">哭闹</h3>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="skill-bar bg-red-500 h-3 rounded-full" style="width: 100%"></div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">传奇级 - 表达大师</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">我的照片</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover cursor-pointer">
+                    <img src="images/WechatIMG2.jpg" alt="我的照片" class="w-full h-64 object-cover">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <div class="p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">可爱瞬间</h3>
+                            <p class="text-sm">记录我的成长点滴</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover cursor-pointer">
+                    <img src="images/WechatIMG3.jpg" alt="我的照片" class="w-full h-64 object-cover">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <div class="p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">快乐时光</h3>
+                            <p class="text-sm">每一天都是新的冒险</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover cursor-pointer">
+                    <img src="images/WechatIMG4.jpg" alt="我的照片" class="w-full h-64 object-cover">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <div class="p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">成长记录</h3>
+                            <p class="text-sm">见证每一个重要时刻</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover cursor-pointer">
+                    <img src="images/WechatIMG5.jpg" alt="我的照片" class="w-full h-64 object-cover">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <div class="p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">甜美笑容</h3>
+                            <p class="text-sm">世界上最美的风景</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover cursor-pointer">
+                    <img src="images/WechatIMG6.jpg" alt="我的照片" class="w-full h-64 object-cover">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <div class="p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">探索世界</h3>
+                            <p class="text-sm">好奇心驱动的每一天</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">联系我</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-200">联系我妈妈</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">
+                                如果您想了解更多关于我的成长故事，或者有任何问题想咨询，欢迎联系我的妈妈！
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <i class="fab fa-weixin text-green-600 text-xl mr-4 w-6"></i>
+                                    <span class="text-gray-700 dark:text-gray-300">微信号: ChenChen951413</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-heart text-red-600 text-xl mr-4 w-6"></i>
+                                    <span class="text-gray-700 dark:text-gray-300">妈妈的爱</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-baby text-purple-600 text-xl mr-4 w-6"></i>
+                                    <span class="text-gray-700 dark:text-gray-300">从霁骁的成长记录</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-4 mt-8">
+                                <a href="#" class="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center hover:bg-green-700 transition-colors">
+                                    <i class="fab fa-weixin"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                                    <i class="fab fa-weibo"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors">
+                                    <i class="fas fa-camera"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <form id="contactForm" class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-700 dark:text-gray-300 mb-2">姓名</label>
+                                    <input type="text" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 dark:bg-gray-700 dark:text-white" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 dark:text-gray-300 mb-2">邮箱</label>
+                                    <input type="email" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 dark:bg-gray-700 dark:text-white" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 dark:text-gray-300 mb-2">消息</label>
+                                    <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 dark:bg-gray-700 dark:text-white" required></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transform hover:scale-105 transition-all duration-300">
+                                    发送消息
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-4">© 2024 从霁骁. All rights reserved.</p>
+            <p class="text-gray-400">用 ❤️ 和代码精心打造</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
