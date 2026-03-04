@@ -1,14 +1,47 @@
+// Lazy loading for images
+function initLazyLoading() {
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.addEventListener('load', () => {
+                    img.style.opacity = '1';
+                    // Hide placeholder
+                    const placeholder = img.previousElementSibling;
+                    if (placeholder && placeholder.classList.contains('animate-pulse')) {
+                        placeholder.style.display = 'none';
+                    }
+                });
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '50px 0px',
+        threshold: 0.01
+    });
+    
+    lazyImages.forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// Initialize lazy loading when page loads
+document.addEventListener('DOMContentLoaded', initLazyLoading);
+
 // Photo carousel functionality
 function initPhotoCarousel() {
-    const images = document.querySelectorAll('.carousel-image');
+    const carouselImages = document.querySelectorAll('#photoCarousel .carousel-image:not(.animate-pulse)');
     const dots = document.querySelectorAll('.carousel-dot');
     let currentIndex = 0;
     
     function showImage(index) {
         // Hide all images
-        images.forEach(img => img.style.opacity = '0');
+        carouselImages.forEach(img => img.style.opacity = '0');
         // Show current image
-        images[index].style.opacity = '1';
+        const currentImg = carouselImages[index];
+        currentImg.style.opacity = '1';
         
         // Update dots
         dots.forEach((dot, i) => {
@@ -17,15 +50,24 @@ function initPhotoCarousel() {
     }
     
     function nextImage() {
-        currentIndex = (currentIndex + 1) % images.length;
+        currentIndex = (currentIndex + 1) % carouselImages.length;
         showImage(currentIndex);
     }
     
-    // Start carousel
-    setInterval(nextImage, 3000); // Change every 3 seconds
-    
-    // Initialize first image
-    showImage(0);
+    // Start carousel after first image loads
+    const firstImage = carouselImages[0];
+    if (firstImage) {
+        firstImage.addEventListener('load', () => {
+            showImage(0);
+            setInterval(nextImage, 3000); // Change every 3 seconds
+        });
+        
+        // If image is already loaded
+        if (firstImage.complete) {
+            showImage(0);
+            setInterval(nextImage, 3000);
+        }
+    }
 }
 
 // Initialize carousel when page loads
