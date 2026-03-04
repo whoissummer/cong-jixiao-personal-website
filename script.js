@@ -1,38 +1,6 @@
-// Lazy loading for images
-function initLazyLoading() {
-    const lazyImages = document.querySelectorAll('.lazy-image');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.addEventListener('load', () => {
-                    img.style.opacity = '1';
-                    // Hide placeholder
-                    const placeholder = img.previousElementSibling;
-                    if (placeholder && placeholder.classList.contains('animate-pulse')) {
-                        placeholder.style.display = 'none';
-                    }
-                });
-                observer.unobserve(img);
-            }
-        });
-    }, {
-        rootMargin: '50px 0px',
-        threshold: 0.01
-    });
-    
-    lazyImages.forEach(img => {
-        imageObserver.observe(img);
-    });
-}
-
-// Initialize lazy loading when page loads
-document.addEventListener('DOMContentLoaded', initLazyLoading);
-
 // Photo carousel functionality
 function initPhotoCarousel() {
-    const carouselImages = document.querySelectorAll('#photoCarousel .carousel-image:not(.animate-pulse)');
+    const carouselImages = document.querySelectorAll('#photoCarousel .carousel-image');
     const dots = document.querySelectorAll('.carousel-dot');
     let currentIndex = 0;
     
@@ -40,8 +8,7 @@ function initPhotoCarousel() {
         // Hide all images
         carouselImages.forEach(img => img.style.opacity = '0');
         // Show current image
-        const currentImg = carouselImages[index];
-        currentImg.style.opacity = '1';
+        carouselImages[index].style.opacity = '1';
         
         // Update dots
         dots.forEach((dot, i) => {
@@ -54,20 +21,11 @@ function initPhotoCarousel() {
         showImage(currentIndex);
     }
     
-    // Start carousel after first image loads
-    const firstImage = carouselImages[0];
-    if (firstImage) {
-        firstImage.addEventListener('load', () => {
-            showImage(0);
-            setInterval(nextImage, 3000); // Change every 3 seconds
-        });
-        
-        // If image is already loaded
-        if (firstImage.complete) {
-            showImage(0);
-            setInterval(nextImage, 3000);
-        }
-    }
+    // Start carousel
+    setInterval(nextImage, 3000); // Change every 3 seconds
+    
+    // Initialize first image
+    showImage(0);
 }
 
 // Initialize carousel when page loads
